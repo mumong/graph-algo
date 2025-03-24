@@ -31,7 +31,13 @@ curl -X POST http://localhost:8080/getResource/master \
      -H "Content-Type: application/json" \
      -d '[{"name": "container1", "resourceQuantity": {"nvidia.com/gpu": 1, "fpga": 1, "myway5.com/cola": 4}}, 
           {"name": "container2", "resourceQuantity": {"nvidia.com/gpu": 1, "fpga": 1, "myway5.com/cola": 2}}]'
-
+```
 
 通过迪杰斯算法得到一个最优组合，主要是计算不同组合的得分计算得分最小的组合，代表了这一组资源获取的路径最小。下图为实际的运行结果示意。
 ![ad7122589e06d03b865c84a28ff9e6c](https://github.com/user-attachments/assets/551ed513-10ff-4acc-9a93-ab38d8c3d1b7)
+
+---
+## 构建方式
+1. make docker 编译构建镜像。
+2. 执行`bash ./tools/upload.sh` 将docker镜像上传到本地containerd仓库中
+3. 执行`kubectl apply -f deployment.yaml` 应用文件部署服务，需要配置对应的rbac确保硬件资源的发现。
