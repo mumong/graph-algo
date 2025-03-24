@@ -9,7 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-Author  := wanghuhu
+Author  := mumong
 
 BINARIES := algo-wizard
 # DOCKER_NAME := 192.168.1.63:30003/xnet/ham
