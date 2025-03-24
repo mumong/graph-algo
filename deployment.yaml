@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: algo-wizard-service-account
+  namespace: xnet
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: xnet
+  name: algo-wizard-role
+rules:
+- apiGroups: ["ham.xnet.com"]
+  resources: ["devicetrees", "devicetopologies"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: algo-wizard-role-binding
+  namespace: xnet
+subjects:
+- kind: ServiceAccount
+  name: algo-wizard-service-account
+  namespace: xnet
+roleRef:
+  kind: Role
+  name: algo-wizard-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: algo-wizard
+  namespace: xnet
+  labels:
+    app: algo-wizard
+spec:
+  selector:
+    app: algo-wizard
+  type: NodePort
+  ports:
+  - name: algo-wizard
+    port: 8080
+    targetPort: 8080
+    nodePort: 30077
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: algo-wizard
+  namespace: xnet
+  labels:
+    app: algo-wizard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: algo-wizard
+  template:
+    metadata:
+      labels:
+        app: algo-wizard
+    spec:
+      serviceAccountName: algo-wizard-service-account  # 绑定到定义的 ServiceAccount
+      nodeSelector:
+        kubernetes.io/hostname: "master"  # 限制在 master 节点运行
+      containers:
+      - name: algo-wizard
+        image: algoservice:v1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+
