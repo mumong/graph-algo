@@ -38,6 +38,6 @@ curl -X POST http://localhost:8080/getResource/master \
 
 ---
 ## 构建方式
-1. make docker 编译构建镜像。
+1. 执行`make docker` 编译构建镜像。
 2. 执行`bash ./tools/upload.sh` 将docker镜像上传到本地containerd仓库中
 3. 执行`kubectl apply -f deployment.yaml` 应用文件部署服务，需要配置对应的rbac确保硬件资源的发现。
