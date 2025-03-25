@@ -1,3 +1,9 @@
+# README.md
+- [English](README.en.md)
+- [Chinese](README.md)
+- [Japanses](README.jp.md)
+
+
 # 🚀 K8s Resource Scheduler Based on Graph Search Algorithm  
 
 ## 📌 项目简介  
