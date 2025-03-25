@@ -4,11 +4,6 @@
 - [Japanses](README.jp.md)
 
 
-# README.md
-- [English](README.en.md)
-- [Chinese](README.md)
-- [Japanese](README.jp.md)
-
 # 🚀 グラフ検索アルゴリズムに基づく K8s リソーススケジューラ
 
 ## 📌 プロジェクト概要
